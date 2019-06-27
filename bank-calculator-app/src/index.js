@@ -1,17 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
-import Demo from "./Demo";
-import Abc from "./Abc";
-import Xyz from "./Xyz";
-import Person from "./Person";
-import EventDemo from "./EventDemo";
-import Counter from "./StatefulComp";
+// import App from "./App";
+// import Demo from "./Demo";
+// //import Abc from "./Abc";
+// import Xyz from "./Xyz";
+// import Person from "./Person";
+// import EventDemo from "./EventDemo";
+// import Counter from "./StatefulComp";
 import * as serviceWorker from "./serviceWorker";
-import FormsComp from "./Forms";
+//import FormsComp from "./Forms";
 import Calculator from "./Calculator";
-import RoutingDemo from "./RoutingDemo";
+//import RoutingDemo from "./RoutingDemo";
 import NavLinks from "./NavLinks";
 
 //
