@@ -1,0 +1,44 @@
+.App {
+  text-align: center;
+}
+
+/*.App-logo {
+    animation: App-logo-spin infinite 20s linear;
+    height: 40vmin;
+    pointer-events: none;
+  }
+
+  .App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+
+  .App-link {
+    color: #61dafb;
+  }
+
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  } */
+.table {
+  border: 1px solid grey;
+}
+.table [data-sort] {
+  cursor: pointer;
+}
+/* This is for the sort up and down icon */
+.table [data-sort]::after {
+  margin-left: 0.75rem;
+  content: url("data:image/svg+xml;utf8,<svg width='10' height='14' viewBox='0 0 6 10' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M3 0L6 4H0L3 0ZM3 10L0 6H6L3 10Z' fill='%238898aa'/></svg>");
+}
