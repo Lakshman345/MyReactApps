@@ -3,6 +3,7 @@ import { tableData } from "./data";
 import { filter } from "lodash";
 import Pagination from "./Pagination";
 //import Pagination from "react-paginate";
+import ErrorModal from "./utilities/Modal";
 
 export default class EmployeeTable extends React.Component {
   constructor(props) {
@@ -12,6 +13,7 @@ export default class EmployeeTable extends React.Component {
       tableData: tableData,
       filteredData: [],
       selectedVal: "",
+      isApiError: false,
       activePage: 1,
       itemsCountPerPage: 3,
       pageRangeDisplayed: 8,
@@ -37,11 +39,19 @@ export default class EmployeeTable extends React.Component {
     const filteredData = filter(
       this.state.tableData.rows,
       obj =>
-        obj.firstName.toLowerCase() === event.target.value.toLowerCase() ||
-        obj.lastName.toLowerCase() === event.target.value.toLowerCase() ||
-        obj.id.toLowerCase() === event.target.value.toLowerCase() ||
-        obj.age.toLowerCase() === event.target.value.toLowerCase() ||
-        obj.contact.toLowerCase() === event.target.value.toLowerCase()
+        obj.firstName
+          .toLowerCase()
+          .includes(event.target.value.toLowerCase()) ||
+        obj.lastName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        obj.id.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        obj.age.toLowerCase().includes(event.target.value.toLowerCase()) ||
+        obj.contact.toLowerCase().includes(event.target.value.toLowerCase())
+
+      // obj.firstName.toLowerCase() === event.target.value.toLowerCase() ||
+      // obj.lastName.toLowerCase() === event.target.value.toLowerCase() ||
+      // obj.id.toLowerCase() === event.target.value.toLowerCase() ||
+      // obj.age.toLowerCase() === event.target.value.toLowerCase() ||
+      // obj.contact.toLowerCase() === event.target.value.toLowerCase()
     );
     console.log("filteredDataaa***", filteredData);
     if (filteredData.length > 0) this.setState({ filteredData });
@@ -60,6 +70,13 @@ export default class EmployeeTable extends React.Component {
         tableData["rows"] = data;
         console.log("new table data", this.state.tableData);
         this.setState({ tableData });
+      })
+      .catch(error => {
+        console.log(error);
+        //  alert(error);
+        this.setState({
+          isApiError: true
+        });
       });
   };
 
@@ -82,6 +99,10 @@ export default class EmployeeTable extends React.Component {
       activePage: pageNumber, // updating value
       reportCollection: paginatedItemCollections
     });
+  };
+
+  handleClose = () => {
+    this.setState({ isApiError: false });
   };
 
   render() {
@@ -167,6 +188,12 @@ export default class EmployeeTable extends React.Component {
           />
         </div>
       );
+    // const modal = this.state.isApiError && (
+    //   <ErrorModal
+    //     isApiError={this.state.isApiError}
+    //     handleClose={this.handleClose}
+    //   />
+    // );
     const noTableData = (
       <div
         style={{
@@ -209,14 +236,18 @@ export default class EmployeeTable extends React.Component {
             <option value="fiat">Plans</option>
           </select>
         </div>
-
         {/* {emptable} */}
-
-        {this.state.selectedVal === "Employee" &&
-        this.state.tableData.rows.length === 0
-          ? noTableData
-          : emptable}
-
+        {this.state.isApiError && this.state.selectedVal === "Employee" ? (
+          <ErrorModal
+            isApiError={this.state.isApiError}
+            handleClose={this.handleClose}
+          />
+        ) : (
+          emptable
+        )}
+        {this.state.isApiError &&
+          this.state.tableData.rows.length === 0 &&
+          noTableData}
         {/*<div className="input-group">
             <input
               type="text"
